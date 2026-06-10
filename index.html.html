@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de recrutement — Français écrit & rapidité</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f1e9;
+    --paper:#fffdf9;
+    --ink:#23211c;
+    --muted:#6f6a5f;
+    --line:#e0d8c9;
+    --accent:#0e6b63;
+    --accent-soft:#d8ebe8;
+    --warn:#b5651d;
+    --warn-soft:#f3e3d2;
+    --bad:#a52a2a;
+    --bad-soft:#f4dada;
+    --good:#0e6b63;
+    --shadow:0 18px 40px -24px rgba(35,33,28,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, #eee6d6 0%, transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:32px 22px 80px}
+  header.app{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.18rem;letter-spacing:.2px}
+  .brand .dot{color:var(--accent)}
+  .stepline{font-size:.82rem;color:var(--muted);font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:34px 32px;
+    box-shadow:var(--shadow);
+  }
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:2rem;line-height:1.12;margin:0 0 6px}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.45rem;margin:0 0 12px}
+  h3{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:.86rem;letter-spacing:.6px;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+  p{margin:0 0 14px}
+  .lead{color:var(--muted);font-size:1.04rem;margin-bottom:22px}
+  .scenario{
+    background:var(--accent-soft);
+    border-left:4px solid var(--accent);
+    border-radius:0 12px 12px 0;
+    padding:16px 18px;
+    margin:0 0 18px;
+    font-size:.98rem;
+  }
+  .scenario strong{color:var(--accent)}
+  label.field{display:block;margin:0 0 16px}
+  label.field span{display:block;font-weight:600;font-size:.9rem;margin-bottom:5px}
+  input[type=text],input[type=email]{
+    width:100%;font-family:inherit;font-size:1rem;padding:12px 14px;
+    border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+  }
+  textarea{
+    width:100%;font-family:inherit;font-size:1.02rem;line-height:1.6;
+    padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);
+    resize:vertical;min-height:240px;
+  }
+  textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .target{
+    background:#fbf6ec;border:1px dashed var(--line);border-radius:12px;
+    padding:16px 18px;font-size:1.05rem;line-height:1.7;margin-bottom:14px;user-select:none;
+  }
+  .row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .spacer{flex:1}
+  button{
+    font-family:inherit;font-weight:600;font-size:1rem;cursor:pointer;
+    border:none;border-radius:10px;padding:13px 24px;transition:transform .08s ease,background .15s ease;
+  }
+  button:active{transform:translateY(1px)}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#0b554f}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .btn-ghost:hover{color:var(--ink);border-color:var(--muted)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .meta{display:flex;gap:22px;flex-wrap:wrap;margin:14px 0 4px;font-variant-numeric:tabular-nums}
+  .meta .m{display:flex;flex-direction:column}
+  .meta .m b{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;line-height:1}
+  .meta .m small{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+  .timer{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent)}
+  .timer.low{color:var(--bad)}
+  .note{font-size:.86rem;color:var(--muted)}
+  ul.clean{margin:0 0 16px;padding-left:18px}
+  ul.clean li{margin-bottom:7px}
+  .consent{display:flex;gap:10px;align-items:flex-start;background:#fbf6ec;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:18px 0}
+  .consent input{margin-top:4px}
+  .hidden{display:none !important}
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+    background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:.9rem;font-weight:600;
+    box-shadow:var(--shadow);z-index:50;opacity:0;transition:opacity .25s ease,transform .25s ease;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+  .toast.warn{background:var(--warn)}
+  .progress{display:flex;gap:6px;margin-bottom:22px}
+  .progress i{height:5px;flex:1;border-radius:3px;background:var(--line)}
+  .progress i.on{background:var(--accent)}
+  /* report */
+  .badge{display:inline-block;padding:5px 12px;border-radius:999px;font-weight:700;font-size:.82rem;letter-spacing:.3px}
+  .badge.green{background:var(--accent-soft);color:var(--good)}
+  .badge.orange{background:var(--warn-soft);color:var(--warn)}
+  .badge.red{background:var(--bad-soft);color:var(--bad)}
+  .block{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;background:#fffdf9}
+  .block h4{margin:0 0 12px;font-family:'Fraunces',serif;font-size:1.12rem;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .verdict-block{background:linear-gradient(135deg,#eef6f4,#fbf6ec);border-color:#cfe3df}
+  .verdict-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .bignote{font-family:'Fraunces',serif;font-size:2.7rem;font-weight:600;line-height:1}
+  .bignote span{font-size:1.1rem;color:var(--muted);font-family:'Hanken Grotesk',sans-serif;font-weight:600}
+  .badge.big{font-size:1rem;padding:9px 18px}
+  .part-note{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;color:var(--accent);white-space:nowrap}
+  .part-note.warnote{color:var(--warn)} .part-note.badnote{color:var(--bad)}
+  .checklist{margin:12px 0 6px;display:grid;gap:7px}
+  .check{display:flex;gap:9px;align-items:flex-start;font-size:.92rem}
+  .check .ic{flex:0 0 auto;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;margin-top:2px}
+  .check.ok .ic{background:var(--good)} .check.no .ic{background:var(--bad)}
+  .check.no{color:var(--muted)}
+  .lt-line{font-size:.92rem;margin:10px 0 2px}
+  .lt-attrib{font-size:.74rem;color:var(--muted);margin-top:4px}
+  .lt-attrib a{color:var(--muted)}
+  .pending{color:var(--muted);font-style:italic;font-size:.9rem}
+  .kv{display:grid;grid-template-columns:1fr auto;gap:6px 16px;font-variant-numeric:tabular-nums}
+  .kv .k{color:var(--muted)}
+  .kv .v{font-weight:600;text-align:right}
+  .kv .v.flag{color:var(--bad)}
+  .answer{white-space:pre-wrap;background:#fbf6ec;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:.96rem;line-height:1.6;margin-top:8px}
+  .evlist{font-size:.86rem;color:var(--muted);margin:8px 0 0;padding-left:18px}
+  .evlist li{margin-bottom:3px}
+  details{margin-top:8px}
+  summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem}
+  .footer-note{margin-top:26px;font-size:.82rem;color:var(--muted);text-align:center}
+  @media(max-width:560px){
+    .card{padding:24px 18px}
+    h1{font-size:1.6rem}
+    .meta{gap:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="app">
+    <div class="brand">Évaluation candidat <span class="dot">·</span> Français écrit &amp; rapidité</div>
+    <div class="stepline" id="stepline">Accès</div>
+  </header>
+
+  <div class="progress" id="progress">
+    <i></i><i></i><i></i><i></i>
+  </div>
+
+  <!-- ÉCRAN D'ACCÈS -->
+  <section id="screen-gate" class="card">
+    <h1>Accès au test</h1>
+    <p class="lead">Ce test est réservé aux candidats invités. Saisissez le code d'accès qui vous a été communiqué pour continuer.</p>
+    <label class="field"><span>Code d'accès</span><input type="text" id="gate-input" placeholder="Votre code" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"></label>
+    <p id="gate-error" class="note hidden" style="color:var(--bad);font-weight:600">Code incorrect. Vérifiez le code auprès de votre interlocuteur.</p>
+    <div class="row">
+      <button class="btn-primary" id="gate-btn">Accéder</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 0 : ACCUEIL -->
+  <section id="screen-intro" class="card hidden">
+    <h1>Bienvenue dans le test</h1>
+    <p class="lead">Ce test évalue votre maîtrise du français écrit, votre capacité à structurer un email professionnel et votre rapidité au clavier. Il dure environ <strong>20 à 25 minutes</strong>.</p>
+
+    <h3>Comment ça se passe</h3>
+    <ul class="clean">
+      <li><strong>1. Vitesse de frappe</strong> — vous recopiez un court texte (1 minute).</li>
+      <li><strong>2. Rédaction d'un email</strong> — vous répondez à un client (≈ 12 min).</li>
+      <li><strong>3. Correction d'un texte</strong> — vous réécrivez un message fautif (≈ 7 min).</li>
+    </ul>
+
+    <h3>Règles importantes — à lire</h3>
+    <ul class="clean">
+      <li>Le test se fait <strong>en une seule fois, sans interruption</strong>.</li>
+      <li>La correction automatique et le copier-coller sont <strong>désactivés</strong> : écrivez avec vos propres mots.</li>
+      <li>Ne quittez pas cette page (changement d'onglet, autre fenêtre, autre site). Les sorties de page sont enregistrées.</li>
+      <li>Aucune aide extérieure (sites, IA, correcteur). L'activité est mesurée pour garantir l'équité.</li>
+    </ul>
+
+    <label class="field"><span>Nom et prénom *</span><input type="text" id="cand-name" placeholder="Ex. Dupont Marie" autocomplete="off"></label>
+    <label class="field"><span>Email (facultatif)</span><input type="email" id="cand-email" placeholder="prenom.nom@email.com" autocomplete="off"></label>
+    <label class="field"><span>Poste visé (facultatif)</span><input type="text" id="cand-role" placeholder="Ex. Agent traitement emails" autocomplete="off"></label>
+
+    <div class="consent">
+      <input type="checkbox" id="consent">
+      <label for="consent">Je comprends que mon activité pendant le test (temps, frappe, sorties de page, tentatives de collage) est enregistrée pour vérifier l'équité, et je m'engage à réaliser le test sans aide extérieure.</label>
+    </div>
+
+    <div class="row">
+      <button class="btn-primary" id="start-btn" disabled>Commencer le test</button>
+      <span class="note">Vos réponses ne sont pas envoyées automatiquement : le rapport reste sur votre appareil à la fin.</span>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 1 : VITESSE DE FRAPPE -->
+  <section id="screen-typing" class="card hidden">
+    <h3>Étape 1 / 3</h3>
+    <h2>Test de vitesse de frappe</h2>
+    <p class="lead">Recopiez le texte ci-dessous le plus fidèlement possible. Le chronomètre démarre dès votre première frappe et s'arrête au bout d'<strong>une minute</strong>.</p>
+    <div class="target" id="typing-target"></div>
+    <textarea id="typing-input" placeholder="Commencez à taper ici…" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="off"></textarea>
+    <div class="meta">
+      <div class="m"><b class="timer" id="typing-timer">1:00</b><small>Temps restant</small></div>
+      <div class="m"><b id="typing-chars">0</b><small>Caractères</small></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <div class="spacer"></div>
+      <button class="btn-primary" id="typing-next" disabled>Étape suivante</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 2 : RÉDACTION EMAIL -->
+  <section id="screen-write1" class="card hidden">
+    <h3>Étape 2 / 3</h3>
+    <h2>Rédaction d'un email professionnel</h2>
+    <div class="scenario" id="write1-scenario"></div>
+    <p class="note">Rédigez un email complet (objet, formule d'appel, corps, conclusion). Vous pouvez inventer les détails manquants. La correction automatique est désactivée volontairement.</p>
+    <textarea id="write1-input" placeholder="Objet : …&#10;&#10;Bonjour …" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="off"></textarea>
+    <div class="meta">
+      <div class="m"><b class="timer" id="write1-timer">12:00</b><small>Temps restant</small></div>
+      <div class="m"><b id="write1-words">0</b><small>Mots</small></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <span class="note">Conseil : visez 120 à 200 mots.</span>
+      <div class="spacer"></div>
+      <button class="btn-primary" id="write1-next">Étape suivante</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 3 : CORRECTION -->
+  <section id="screen-write2" class="card hidden">
+    <h3>Étape 3 / 3</h3>
+    <h2>Correction et réécriture</h2>
+    <p class="lead">Le message ci-dessous contient plusieurs fautes (orthographe, accents, accords, conjugaison, ponctuation, majuscules) et un ton à améliorer. Réécrivez-le dans un français correct et professionnel. Vous pouvez <strong>corriger les mots fautifs ou reformuler les phrases</strong> — les deux sont acceptés.</p>
+    <div class="target" id="write2-source"></div>
+    <textarea id="write2-input" placeholder="Réécrivez le message corrigé ici…" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="off"></textarea>
+    <div class="meta">
+      <div class="m"><b class="timer" id="write2-timer">7:00</b><small>Temps restant</small></div>
+      <div class="m"><b id="write2-words">0</b><small>Mots</small></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <div class="spacer"></div>
+      <button class="btn-primary" id="write2-next">Terminer le test</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 4 : RAPPORT -->
+  <section id="screen-report" class="card hidden">
+    <h1>Test terminé</h1>
+    <p class="lead" id="report-intro"></p>
+    <p id="send-status" class="note" style="margin:-6px 0 14px;font-weight:600"></p>
+
+    <!-- VERDICT GLOBAL -->
+    <div class="block verdict-block">
+      <div class="verdict-head">
+        <div class="bignote" id="global-note">—<span> / 20</span></div>
+        <span id="verdict-badge" class="badge big">—</span>
+      </div>
+      <div class="kv" id="global-breakdown" style="margin-top:16px"></div>
+      <p class="note" id="global-warn" style="margin-top:10px"></p>
+    </div>
+
+    <!-- INTÉGRITÉ -->
+    <div class="block">
+      <h4>Intégrité du test <span id="integrity-badge" class="badge">—</span></h4>
+      <div class="kv" id="integrity-kv"></div>
+      <details id="integrity-detail"><summary>Voir le détail des évènements</summary><ul class="evlist" id="integrity-events"></ul></details>
+      <p class="note" style="margin-top:12px">Indicateurs d'aide à la décision, pas une preuve absolue.</p>
+    </div>
+
+    <!-- PARTIE 1 -->
+    <div class="block">
+      <h4>1. Vitesse de frappe <span class="part-note" id="note1">—</span></h4>
+      <div class="kv" id="typing-kv"></div>
+    </div>
+
+    <!-- PARTIE 2 -->
+    <div class="block">
+      <h4>2. Rédaction d'email <span class="part-note" id="note2">—</span></h4>
+      <div class="kv" id="write1-kv"></div>
+      <p class="note" style="margin:14px 0 2px;font-weight:600;color:var(--ink)">Structure de l'email</p>
+      <div class="checklist" id="write1-structure"></div>
+      <p class="note" style="margin:14px 0 2px;font-weight:600;color:var(--ink)">Orthographe &amp; grammaire</p>
+      <div id="write1-lang"><span class="pending">Analyse en cours…</span></div>
+      <details style="margin-top:10px"><summary>Voir la réponse du candidat</summary><div class="answer" id="write1-answer"></div></details>
+    </div>
+
+    <!-- PARTIE 3 -->
+    <div class="block">
+      <h4>3. Correction / réécriture <span class="part-note" id="note3">—</span></h4>
+      <div class="kv" id="write2-kv"></div>
+      <p class="note" style="margin:14px 0 2px;font-weight:600;color:var(--ink)">Fautes d'origine corrigées (correction directe ou reformulation)</p>
+      <div class="checklist" id="write2-checklist"></div>
+      <p class="note" style="margin-top:8px">Une faute compte comme corrigée si elle a été corrigée <em>ou</em> supprimée par reformulation. Cette liste ne porte que sur les fautes du texte d'origine — relisez la réponse pour d'éventuelles nouvelles fautes.</p>
+      <details style="margin-top:10px"><summary>Voir le texte d'origine et la réponse</summary>
+        <p class="note" style="margin:10px 0 4px">Texte d'origine fourni :</p>
+        <div class="answer" id="write2-source-echo" style="background:#f4ece0"></div>
+        <p class="note" style="margin:10px 0 4px">Réponse du candidat :</p>
+        <div class="answer" id="write2-answer"></div>
+      </details>
+    </div>
+
+    <div class="row">
+      <button class="btn-primary" id="dl-txt">Télécharger le rapport (.txt)</button>
+      <button class="btn-ghost" id="dl-json">Exporter (.json)</button>
+      <button class="btn-ghost" id="copy-report">Copier le rapport</button>
+    </div>
+    <p class="footer-note">Notes calculées automatiquement pour un premier tri. Pour les profils limites, vérifiez les réponses détaillées.</p>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   CONFIGURATION — modifiable librement par le recruteur
+   ============================================================ */
+const CONFIG = {
+  // ===== CODE D'ACCÈS (méthode « code automatique par date ») =====
+  // Le code valable CHAQUE JOUR = ce mot secret + la date du jour au format JJMM.
+  // Ex. avec "ATLAS" : le 08/06 -> ATLAS0806 ; le 09/06 -> ATLAS0906.
+  // Le code change tout seul chaque jour ; vous n'avez RIEN à rééditer au quotidien.
+  // Pour renouveler complètement la série, changez simplement ce mot secret.
+  // La casse et les espaces sont ignorés à la saisie (atlas 0806 = ATLAS0806).
+  accessSecret: `ATLAS`,
+
+  // Texte à recopier pour le test de vitesse (60 s)
+  typingText: `Le service client est au cœur de la relation entre une entreprise et ses clients. Chaque échange, qu'il soit écrit ou oral, doit rester clair, courtois et précis. Un bon conseiller sait écouter, reformuler la demande et proposer une solution adaptée dans un délai raisonnable. La qualité de la communication écrite reflète directement l'image de l'entreprise.`,
+  typingSeconds: 60,
+
+  // Scénario de rédaction d'email
+  write1Scenario: `<strong>Mise en situation.</strong> Un client, M. Lemoine, a passé une commande il y a deux semaines et ne l'a toujours pas reçue. Il vous écrit, agacé, pour savoir où en est sa livraison et demande un remboursement si le colis est perdu. <br><br>Rédigez l'email de réponse que vous lui adresseriez au nom du service client. Vous pouvez inventer les détails nécessaires (n° de commande, délais, cause du retard…).<br><br><strong>Votre email doit contenir :</strong> un objet clair ; une formule d'appel ; une réponse concrète à sa demande (où en est la commande, explication du retard, solution ou délai proposé) ; un ton professionnel et rassurant ; une formule de politesse pour conclure.`,
+  write1Seconds: 12 * 60,
+
+  // Texte fautif à corriger
+  write2Source: `bonjour, suite a votre mail nous avons bien recu votre reclamation concernant votre commande qui na pas été livré. nous somme vraiment désolé pour se désagrément. votre colis vous serat renvoyé dans les plus bref délais, en esperant que sa vous conviendra. cordialement`,
+  write2Seconds: 7 * 60,
+
+  // ===== BARÈME / NOTATION (tout est sur 20) =====
+  scoring: {
+    typingSpeedFull: 45,   // vitesse (mots/min) donnant le maximum de points de rapidité
+    weights: { p1:0.2, p2:0.5, p3:0.3 },  // poids de chaque partie dans la note globale
+    verdict: { good:14, mid:10 },          // seuils : >=14 solide, >=10 à confirmer, sinon insuffisant
+  },
+  languageToolLang: 'fr',  // langue pour la vérification orthographique automatique
+
+  // ===== ENVOI AUTOMATIQUE DES RÉSULTATS (facultatif) =====
+  // Collez ici l'URL de votre application Google Apps Script (se terminant par /exec)
+  // pour recevoir chaque résultat directement dans votre Google Sheet, sans rien
+  // demander au candidat. Laissez vide ('') pour désactiver l'envoi
+  // (les résultats restent alors exportables à la main via les boutons du rapport).
+  resultsEndpoint: 'https://script.google.com/macros/s/AKfycbzEGqHwI7A9C5kYU5rCEkQ6VygRESVbjQtvKXbELHWolxaBz1v0A4QrN4RGYHGNgiMv-g/exec',
+
+  // Partie 2 — critères de STRUCTURE de l'email (vérifiés hors-ligne)
+  structureChecks: [
+    { label:`Objet / sujet présent`, pts:1.5, test:t=>/objet\s*:/i.test(t) || /^.{0,70}\b(objet|sujet)\b/i.test(t) },
+    { label:`Formule d'appel (Bonjour, Madame/Monsieur…)`, pts:1.5, test:t=>/\b(bonjour|madame|monsieur|cher|chère)\b/i.test(t) },
+    { label:`Formule de politesse / clôture`, pts:2, test:t=>/(cordialement|salutations|bonne (journée|réception)|je vous remercie|à votre disposition|meilleures|respectueus)/i.test(t) },
+    { label:`Longueur adaptée (≈ 60 à 300 mots)`, pts:2, test:t=>{const w=(t.trim().match(/\S+/g)||[]).length; return w>=60 && w<=300;} },
+    { label:`Découpage en paragraphes`, pts:1, test:t=>(t.match(/\n/g)||[]).length>=2 },
+    { label:`Répond à la demande (livraison, délai, solution…)`, pts:2, test:t=>{const n=t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); return ['command','livr','colis','rembours','delai','suivi','numero','exped','stock','approvision','patient','solution'].filter(k=>n.includes(k)).length>=2;} },
+  ],
+
+  // Partie 3 — chaque faute du texte d'origine compte comme corrigée si elle est
+  // soit corrigée directement, soit supprimée par REFORMULATION (forme fautive absente).
+  // « cov » est vrai quand la réponse fait au moins write2MinWords mots : on ne crédite
+  // une reformulation que si le candidat a réellement réécrit le message (anti-réponse vide).
+  // Si vous changez write2Source, adaptez cette liste.
+  write2MinWords: 30,
+  write2Checks: [
+    { label:`Majuscule en début de message`, test:t=>/^[^\p{L}]*\p{Lu}/u.test(t.trim()) },
+    { label:`« suite à » (accent grave) — corrigé ou reformulé`, test:(t,cov)=>/suite\s+à/i.test(t) || (cov && !/\bsuite\s+a\b/i.test(t)) },
+    { label:`« reçu » (cédille) — corrigé ou reformulé`, test:(t,cov)=>/reçu/i.test(t) || (cov && !/\brecu\b/i.test(t)) },
+    { label:`« réclamation » (accents) — corrigé ou reformulé`, test:(t,cov)=>/réclamation/i.test(t) || (cov && !/\breclamation\b/i.test(t)) },
+    { label:`« n'a pas » (élision) — corrigé ou reformulé`, test:(t,cov)=>/n['’]a\s+pas/i.test(t) || (cov && !/\bna\s+pas\b/i.test(t)) },
+    { label:`« livrée » (accord féminin) — corrigé ou reformulé`, test:(t,cov)=>/livrée/i.test(t) || (cov && !/livré(?!e)/i.test(t)) },
+    { label:`« sommes » (conjugaison) — corrigé ou reformulé`, test:(t,cov)=>/\bsommes\b/i.test(t) || (cov && !/\bsomme\b/i.test(t)) },
+    { label:`« désolés » / excuses (accord ou équivalent)`, test:(t,cov)=>/désolés|navrés|excus/i.test(t) || (cov && !/désolé(?!s)/i.test(t)) },
+    { label:`« ce désagrément » (ce ≠ se)`, test:(t,cov)=>/\bce\s+désagré?ment/i.test(t) || (cov && !/\bse\s+désagré?ment/i.test(t)) },
+    { label:`« sera » (futur, sans « t »)`, test:t=>/\bsera\b/i.test(t) && !/\bserat\b/i.test(t) },
+    { label:`« brefs délais » (accord pluriel) — ou équivalent`, test:(t,cov)=>/brefs\s+délais|meilleurs\s+délais/i.test(t) || (cov && !/\bbref\b/i.test(t) && !/\bbrief\b/i.test(t)) },
+    { label:`« espérant » (accent) — corrigé ou reformulé`, test:(t,cov)=>/espér(ant|ons|e)/i.test(t) || (cov && !/esperant/i.test(t) && !/esperons/i.test(t)) },
+    { label:`« ça » / « cela » (sa → ça)`, test:(t,cov)=>/que\s+(ça|cela)/i.test(t) || (cov && !/\bque\s+sa\b/i.test(t)) },
+    { label:`Formule de clôture avec majuscule`, test:t=>/\bCordialement\b/.test(t) || /\b(Salutations|Respectueusement|Sincères salutations|Bien à vous)\b/.test(t) },
+  ],
+};
+
+/* ============================================================
+   ÉTAT
+   ============================================================ */
+const state = {
+  candidate:{name:'',email:'',role:''},
+  startedAt:null,
+  typing:{},
+  write1:{ keystrokes:0, pasteAttempts:0, copyAttempts:0, suspiciousInserts:0, timeSpent:0 },
+  write2:{ keystrokes:0, pasteAttempts:0, copyAttempts:0, suspiciousInserts:0, timeSpent:0 },
+  blurEvents:[],   // {phase, atSec}
+  currentPhase:'intro',
+};
+
+/* ============================================================
+   UTILITAIRES
+   ============================================================ */
+const $ = id => document.getElementById(id);
+function show(id){
+  ['screen-gate','screen-intro','screen-typing','screen-write1','screen-write2','screen-report']
+    .forEach(s=>$(s).classList.add('hidden'));
+  $(id).classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function setProgress(n){ // 0..4
+  const bars=$('progress').children;
+  for(let i=0;i<bars.length;i++) bars[i].classList.toggle('on', i<n);
+}
+function setStep(t){ $('stepline').textContent=t; }
+let toastTimer=null;
+function toast(msg,warn=true){
+  const t=$('toast'); t.textContent=msg;
+  t.className='toast show'+(warn?' warn':'');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.className='toast',2200);
+}
+function countWords(s){ const m=s.trim().match(/\S+/g); return m?m.length:0; }
+function fmtTime(sec){ const m=Math.floor(sec/60), s=sec%60; return m+':'+String(s).padStart(2,'0'); }
+function nowSec(){ return Math.round((Date.now()-state.startedAt)/1000); }
+
+/* ============================================================
+   SURVEILLANCE GLOBALE (sorties de page)
+   ============================================================ */
+function phaseIsMonitored(){ return ['typing','write1','write2'].includes(state.currentPhase); }
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && phaseIsMonitored()){
+    state.blurEvents.push({phase:state.currentPhase, atSec:nowSec(), type:'onglet/fenêtre masqué'});
+    toast('Sortie de page détectée et enregistrée.');
+  }
+});
+window.addEventListener('blur',()=>{
+  if(phaseIsMonitored()){
+    const last=state.blurEvents[state.blurEvents.length-1];
+    // éviter les doublons quasi-simultanés avec visibilitychange
+    if(!last || nowSec()-last.atSec>1){
+      state.blurEvents.push({phase:state.currentPhase, atSec:nowSec(), type:'fenêtre quittée'});
+    }
+  }
+});
+
+/* Attache les protections anti-triche à une zone de texte */
+function guardTextarea(el, bucket){
+  el.addEventListener('paste',e=>{ e.preventDefault(); bucket.pasteAttempts++; toast('Le collage est désactivé.'); });
+  el.addEventListener('copy',e=>{ e.preventDefault(); bucket.copyAttempts++; });
+  el.addEventListener('cut',e=>{ e.preventDefault(); bucket.copyAttempts++; });
+  el.addEventListener('contextmenu',e=>{ e.preventDefault(); });
+  el.addEventListener('drop',e=>{ e.preventDefault(); bucket.pasteAttempts++; toast('Le glisser-déposer est désactivé.'); });
+  el.addEventListener('dragover',e=>e.preventDefault());
+  el.addEventListener('keydown',()=>{ bucket.keystrokes++; });
+  el.addEventListener('beforeinput',e=>{
+    // insertion massive non issue d'une frappe normale
+    if(e.inputType==='insertFromPaste'||e.inputType==='insertFromDrop'){ bucket.suspiciousInserts++; }
+    else if(e.data && e.data.length>15){ bucket.suspiciousInserts++; }
+  });
+}
+
+/* ============================================================
+   ÉCRAN D'ACCÈS — code automatique par date
+   ============================================================ */
+function dayCode(d){
+  const dd=String(d.getDate()).padStart(2,'0');
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  return (CONFIG.accessSecret + dd + mm).toUpperCase();
+}
+// Codes acceptés : aujourd'hui, plus la veille et le lendemain
+// (pour absorber les écarts de fuseau horaire et les tests à cheval sur minuit).
+function validCodes(){
+  const today=new Date(), out=[];
+  for(let off=-1; off<=1; off++){
+    const d=new Date(today); d.setDate(today.getDate()+off);
+    out.push(dayCode(d));
+  }
+  return out;
+}
+function tryUnlock(){
+  const typed=$('gate-input').value.trim().replace(/\s+/g,'').toUpperCase();
+  if(typed && validCodes().includes(typed)){
+    $('screen-gate').classList.add('hidden');
+    $('screen-intro').classList.remove('hidden');
+    setStep('Accueil');
+    $('cand-name').focus();
+  } else {
+    $('gate-error').classList.remove('hidden');
+    $('gate-input').focus();
+    $('gate-input').select();
+  }
+}
+$('gate-btn').addEventListener('click', tryUnlock);
+$('gate-input').addEventListener('keydown', e=>{ if(e.key==='Enter') tryUnlock(); });
+$('gate-input').addEventListener('input', ()=>$('gate-error').classList.add('hidden'));
+
+/* ============================================================
+   ÉCRAN 0 — ACCUEIL
+   ============================================================ */
+$('consent').addEventListener('change',()=>{
+  $('start-btn').disabled = !($('consent').checked && $('cand-name').value.trim());
+});
+$('cand-name').addEventListener('input',()=>{
+  $('start-btn').disabled = !($('consent').checked && $('cand-name').value.trim());
+});
+$('start-btn').addEventListener('click',()=>{
+  state.candidate.name=$('cand-name').value.trim();
+  state.candidate.email=$('cand-email').value.trim();
+  state.candidate.role=$('cand-role').value.trim();
+  state.startedAt=Date.now();
+  startTyping();
+});
+
+/* ============================================================
+   ÉTAPE 1 — VITESSE DE FRAPPE
+   ============================================================ */
+let typingTimer=null, typingStarted=false, typingRemaining=CONFIG.typingSeconds, typingStartTime=null;
+function startTyping(){
+  state.currentPhase='typing';
+  setStep('Étape 1 — Frappe'); setProgress(1);
+  $('typing-target').textContent=CONFIG.typingText;
+  const input=$('typing-input');
+  input.value=''; input.disabled=false;
+  typingRemaining=CONFIG.typingSeconds; typingStarted=false; typingStartTime=null;
+  $('typing-timer').textContent=fmtTime(typingRemaining);
+  $('typing-chars').textContent='0';
+  $('typing-next').disabled=true;
+  guardTextarea(input, {pasteAttempts:0,copyAttempts:0,keystrokes:0,suspiciousInserts:0}); // frappe non comptée séparément
+  input.addEventListener('input',onTypingInput);
+  show('screen-typing'); input.focus();
+}
+function onTypingInput(e){
+  $('typing-chars').textContent=e.target.value.length;
+  if(!typingStarted){
+    typingStarted=true;
+    typingStartTime=Date.now();
+    typingTimer=setInterval(()=>{
+      typingRemaining--;
+      $('typing-timer').textContent=fmtTime(typingRemaining);
+      if(typingRemaining<=10) $('typing-timer').classList.add('low');
+      if(typingRemaining<=0) finishTyping();
+    },1000);
+  }
+}
+function finishTyping(){
+  clearInterval(typingTimer);
+  const input=$('typing-input');
+  input.disabled=true;
+  const typed=input.value;
+  const norm = s => s.trim().replace(/\s+/g,' ');
+  const tw = norm(typed).split(' ').filter(Boolean);
+  const rw = norm(CONFIG.typingText).split(' ').filter(Boolean);
+  let correctWords=0;
+  for(let i=0;i<tw.length;i++){ if(tw[i]===rw[i]) correctWords++; }
+  let elapsedSec = typingStartTime ? Math.round((Date.now()-typingStartTime)/1000) : CONFIG.typingSeconds;
+  elapsedSec = Math.min(Math.max(elapsedSec,1), CONFIG.typingSeconds);
+  const minutes = elapsedSec/60;
+  const grossWPM = Math.round((typed.length/5)/minutes);
+  const accuracy = tw.length ? Math.round(correctWords/tw.length*100) : 0;
+  const netWPM = Math.round(grossWPM * accuracy/100);
+  state.typing={ typedChars:typed.length, words:tw.length, correctWords, grossWPM, netWPM, accuracy, durationSec:elapsedSec };
+  $('typing-timer').textContent='Terminé';
+  $('typing-next').disabled=false;
+  toast('Étape de frappe terminée.', false);
+}
+$('typing-next').addEventListener('click',()=>{
+  if(typingStarted && typingRemaining>0) finishTyping();
+  startWrite1();
+});
+
+/* ============================================================
+   ÉTAPE 2 — RÉDACTION EMAIL
+   ============================================================ */
+let w1Timer=null, w1Remaining=CONFIG.write1Seconds, w1Start=null;
+function startWrite1(){
+  state.currentPhase='write1';
+  setStep('Étape 2 — Rédaction'); setProgress(2);
+  $('write1-scenario').innerHTML=CONFIG.write1Scenario;
+  const input=$('write1-input');
+  guardTextarea(input, state.write1);
+  input.addEventListener('input',()=>{ $('write1-words').textContent=countWords(input.value); });
+  w1Remaining=CONFIG.write1Seconds; w1Start=Date.now();
+  $('write1-timer').textContent=fmtTime(w1Remaining);
+  w1Timer=setInterval(()=>{
+    w1Remaining--;
+    $('write1-timer').textContent=fmtTime(w1Remaining);
+    if(w1Remaining<=30) $('write1-timer').classList.add('low');
+    if(w1Remaining<=0) endWrite1(true);
+  },1000);
+  show('screen-write1'); input.focus();
+}
+function endWrite1(auto){
+  clearInterval(w1Timer);
+  state.write1.text=$('write1-input').value;
+  state.write1.words=countWords(state.write1.text);
+  state.write1.timeSpent=Math.round((Date.now()-w1Start)/1000);
+  if(auto) toast('Temps écoulé — passage à l\'étape suivante.', false);
+  startWrite2();
+}
+$('write1-next').addEventListener('click',()=>endWrite1(false));
+
+/* ============================================================
+   ÉTAPE 3 — CORRECTION
+   ============================================================ */
+let w2Timer=null, w2Remaining=CONFIG.write2Seconds, w2Start=null;
+function startWrite2(){
+  state.currentPhase='write2';
+  setStep('Étape 3 — Correction'); setProgress(3);
+  $('write2-source').textContent=CONFIG.write2Source;
+  const input=$('write2-input');
+  guardTextarea(input, state.write2);
+  input.addEventListener('input',()=>{ $('write2-words').textContent=countWords(input.value); });
+  w2Remaining=CONFIG.write2Seconds; w2Start=Date.now();
+  $('write2-timer').textContent=fmtTime(w2Remaining);
+  w2Timer=setInterval(()=>{
+    w2Remaining--;
+    $('write2-timer').textContent=fmtTime(w2Remaining);
+    if(w2Remaining<=30) $('write2-timer').classList.add('low');
+    if(w2Remaining<=0) endWrite2(true);
+  },1000);
+  show('screen-write2'); input.focus();
+}
+function endWrite2(auto){
+  clearInterval(w2Timer);
+  state.write2.text=$('write2-input').value;
+  state.write2.words=countWords(state.write2.text);
+  state.write2.timeSpent=Math.round((Date.now()-w2Start)/1000);
+  state.currentPhase='report';
+  buildReport();
+}
+$('write2-next').addEventListener('click',()=>endWrite2(false));
+
+/* ============================================================
+   RAPPORT
+   ============================================================ */
+function integrityScore(){
+  const blur=state.blurEvents.length;
+  const paste=state.write1.pasteAttempts+state.write2.pasteAttempts;
+  const susp=state.write1.suspiciousInserts+state.write2.suspiciousInserts;
+  let score=100;
+  score -= blur*12;
+  score -= paste*15;
+  score -= susp*20;
+  score=Math.max(0,score);
+  let label,cls;
+  if(score>=80){label='Aucun signal notable';cls='green';}
+  else if(score>=50){label='Quelques signaux — à vérifier';cls='orange';}
+  else{label='Signaux multiples — vigilance';cls='red';}
+  return {score,label,cls,blur,paste,susp};
+}
+function kvHtml(pairs){
+  return pairs.map(([k,v,flag])=>`<div class="k">${k}</div><div class="v${flag?' flag':''}">${v}</div>`).join('');
+}
+/* ---------- Notation ---------- */
+function clampNote(n){ return Math.max(0, Math.min(20, Math.round(n*10)/10)); }
+function checkHtml(items){
+  return items.map(it=>`<div class="check ${it.ok?'ok':'no'}"><span class="ic">${it.ok?'✓':'✗'}</span><span>${it.label}</span></div>`).join('');
+}
+function scoreTyping(t){
+  const cap=CONFIG.scoring.typingSpeedFull||45;
+  const speedPts=Math.min(t.grossWPM,cap)/cap*12;
+  const accPts=(t.accuracy/100)*8;
+  return clampNote(speedPts+accPts);
+}
+function runStructure(text){
+  const items=CONFIG.structureChecks.map(c=>({label:c.label, pts:c.pts, ok:!!c.test(text)}));
+  const pts=items.reduce((s,i)=>s+(i.ok?i.pts:0),0);
+  return {items, pts}; // pts sur 10
+}
+function runCorrections(text){
+  const words=(text.trim().match(/\S+/g)||[]).length;
+  const cov = words >= (CONFIG.write2MinWords||30);
+  const items=CONFIG.write2Checks.map(c=>({label:c.label, ok:!!c.test(text, cov)}));
+  const passed=items.filter(i=>i.ok).length;
+  const note=clampNote(items.length? passed/items.length*20 : 0);
+  return {items, passed, total:items.length, note};
+}
+function langScoreFromMatches(matches, words){
+  const serious=matches.filter(m=>{
+    const cat=(m.rule&&m.rule.category&&m.rule.category.id)||'';
+    return cat!=='TYPOGRAPHY' && cat!=='STYLE' && cat!=='REDUNDANCY';
+  });
+  const per100 = words ? serious.length/words*100 : 0;
+  let pts;
+  if(per100<=1) pts=10; else if(per100<=2) pts=8.5; else if(per100<=4) pts=7;
+  else if(per100<=6) pts=5; else if(per100<=9) pts=3; else if(per100<=13) pts=1.5; else pts=0;
+  return {pts, errors:serious.length, total:matches.length, per100:Math.round(per100*10)/10};
+}
+async function checkLanguageTool(text){
+  const body=new URLSearchParams();
+  body.set('text', text);
+  body.set('language', CONFIG.languageToolLang||'fr');
+  const res=await fetch('https://api.languagetool.org/v2/check',{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+    body:body.toString()
+  });
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  const data=await res.json();
+  return data.matches||[];
+}
+function verdictOf(g){
+  const v=CONFIG.scoring.verdict;
+  if(g>=v.good) return {label:'Profil solide', cls:'green'};
+  if(g>=v.mid)  return {label:'À confirmer', cls:'orange'};
+  return {label:'Insuffisant', cls:'red'};
+}
+function partNoteLabel(el, note){
+  el.textContent=note.toFixed(1)+' / 20';
+  el.className='part-note'+(note<10?' badnote':(note<14?' warnote':''));
+}
+function renderGlobal(){
+  const s=state.scores, w=CONFIG.scoring.weights;
+  const g=clampNote(s.note1*w.p1 + s.note2*w.p2 + s.note3*w.p3);
+  s.global=g;
+  const v=verdictOf(g); s.verdict=v.label;
+  $('global-note').innerHTML=g.toFixed(1)+'<span> / 20</span>';
+  $('verdict-badge').textContent=v.label;
+  $('verdict-badge').className='badge big '+v.cls;
+  $('global-breakdown').innerHTML=kvHtml([
+    [`Partie 1 — Frappe (poids ${Math.round(w.p1*100)} %)`, s.note1.toFixed(1)+' / 20'],
+    [`Partie 2 — Rédaction (poids ${Math.round(w.p2*100)} %)`, (s.languageEvaluated?'':'≈ ')+s.note2.toFixed(1)+' / 20'],
+    [`Partie 3 — Correction (poids ${Math.round(w.p3*100)} %)`, s.note3.toFixed(1)+' / 20'],
+  ]);
+  $('global-warn').textContent = s.languageEvaluated ? '' :
+    "Orthographe de la partie 2 non vérifiée automatiquement : la note de la partie 2 et la note globale sont provisoires (basées sur la structure seule). Relisez la réponse.";
+}
+
+async function buildReport(){
+  setStep('Rapport'); setProgress(4);
+  state.scores={};
+  const c=state.candidate;
+  $('report-intro').textContent=`Candidat : ${c.name}${c.role?' — '+c.role:''}.`;
+
+  // Intégrité
+  const ig=integrityScore();
+  $('integrity-badge').textContent=ig.label;
+  $('integrity-badge').className='badge '+ig.cls;
+  $('integrity-kv').innerHTML=kvHtml([
+    ['Indice d\'intégrité', ig.score+' / 100'],
+    ['Sorties de page', ig.blur, ig.blur>0],
+    ['Tentatives de collage / glisser-déposer', ig.paste, ig.paste>0],
+    ['Insertions de texte massives', ig.susp, ig.susp>0],
+  ]);
+  const ev=[];
+  state.blurEvents.forEach(b=>ev.push(`Sortie de page (${b.type}) — étape « ${b.phase} » à ${fmtTime(b.atSec)} après le début`));
+  if(state.write1.pasteAttempts) ev.push(`${state.write1.pasteAttempts} tentative(s) de collage — rédaction`);
+  if(state.write2.pasteAttempts) ev.push(`${state.write2.pasteAttempts} tentative(s) de collage — correction`);
+  if(state.write1.suspiciousInserts) ev.push(`${state.write1.suspiciousInserts} insertion(s) massive(s) — rédaction`);
+  if(state.write2.suspiciousInserts) ev.push(`${state.write2.suspiciousInserts} insertion(s) massive(s) — correction`);
+  if(ev.length===0) ev.push('Aucun évènement enregistré.');
+  $('integrity-events').innerHTML=ev.map(e=>`<li>${e}</li>`).join('');
+
+  // Partie 1 — frappe
+  const t=state.typing;
+  state.scores.note1=scoreTyping(t);
+  partNoteLabel($('note1'), state.scores.note1);
+  $('typing-kv').innerHTML=kvHtml([
+    ['Vitesse brute', t.grossWPM+' mots/min'],
+    ['Vitesse nette (corrigée)', t.netWPM+' mots/min'],
+    ['Précision', t.accuracy+' %'],
+    ['Mots saisis', t.words],
+    ['Durée réelle', fmtTime(t.durationSec)],
+  ]);
+
+  // Partie 2 — structure (hors-ligne)
+  const struct=runStructure(state.write1.text||'');
+  state.scores.structure=struct.items.map(i=>({label:i.label, ok:i.ok}));
+  state.scores.structurePts=struct.pts;
+  $('write1-kv').innerHTML=kvHtml([
+    ['Nombre de mots', state.write1.words],
+    ['Temps de rédaction', fmtTime(state.write1.timeSpent)],
+  ]);
+  $('write1-structure').innerHTML=checkHtml(struct.items);
+  $('write1-answer').textContent=state.write1.text||'(vide)';
+
+  // Partie 3 — corrections (hors-ligne)
+  const corr=runCorrections(state.write2.text||'');
+  state.scores.note3=corr.note;
+  state.scores.corrections={items:corr.items.map(i=>({label:i.label, ok:i.ok})), passed:corr.passed, total:corr.total};
+  partNoteLabel($('note3'), corr.note);
+  $('write2-kv').innerHTML=kvHtml([
+    ['Corrections trouvées', corr.passed+' / '+corr.total],
+    ['Nombre de mots', state.write2.words],
+    ['Temps de correction', fmtTime(state.write2.timeSpent)],
+  ]);
+  $('write2-checklist').innerHTML=checkHtml(corr.items);
+  $('write2-source-echo').textContent=CONFIG.write2Source;
+  $('write2-answer').textContent=state.write2.text||'(vide)';
+
+  // Note 2 provisoire (structure seule) puis global, en attendant l'orthographe
+  state.scores.note2=clampNote(struct.pts*2);
+  state.scores.languageEvaluated=false;
+  show('screen-report');
+  $('note2').textContent='…';
+  renderGlobal();
+
+  // Orthographe & grammaire (LanguageTool) — asynchrone, avec repli
+  const text=(state.write1.text||'').trim();
+  if(!text){
+    $('write1-lang').innerHTML='<span class="pending">Aucun texte à analyser.</span>';
+    partNoteLabel($('note2'), state.scores.note2);
+    sendResults();
+    return;
+  }
+  try{
+    const matches=await checkLanguageTool(text);
+    const ls=langScoreFromMatches(matches, state.write1.words);
+    state.scores.languagePts=ls.pts;
+    state.scores.languageErrors=ls.errors;
+    state.scores.languagePer100=ls.per100;
+    state.scores.note2=clampNote(struct.pts + ls.pts);
+    state.scores.languageEvaluated=true;
+    $('write1-lang').innerHTML =
+      `<div class="kv">${kvHtml([
+        ['Fautes détectées', ls.errors, ls.errors>0],
+        ['Densité', ls.per100+' / 100 mots'],
+        ['Note orthographe', ls.pts.toFixed(1)+' / 10'],
+      ])}</div>`+
+      `<p class="lt-attrib">Vérification fournie par <a href="https://languagetool.org" target="_blank" rel="noopener">LanguageTool</a>.</p>`;
+  }catch(err){
+    state.scores.languageEvaluated=false;
+    $('write1-lang').innerHTML='<p class="lt-line" style="color:var(--warn)">Vérification orthographique automatique indisponible (pas de connexion ou service occupé). Note de la partie 2 provisoire — relisez la réponse manuellement.</p>';
+  }
+  partNoteLabel($('note2'), state.scores.note2);
+  renderGlobal();
+  sendResults();
+}
+
+/* ============================================================
+   ENVOI AUTOMATIQUE DES RÉSULTATS (vers Google Sheet via Apps Script)
+   ============================================================ */
+async function sendResults(){
+  if(!CONFIG.resultsEndpoint) return;          // désactivé si pas d'URL configurée
+  if(state._sent) return; state._sent=true;    // une seule fois par session
+  const s=state.scores||{}, ig=integrityScore(), t=state.typing||{};
+  const payload={
+    date:new Date().toISOString(),
+    nom:state.candidate.name, email:state.candidate.email, poste:state.candidate.role,
+    note_globale:s.global, verdict:s.verdict,
+    note_frappe:s.note1, note_redaction:s.note2, note_correction:s.note3,
+    orthographe_verifiee:s.languageEvaluated,
+    integrite:ig.score, sorties_page:ig.blur, collages:ig.paste, insertions:ig.susp,
+    vitesse_brute:t.grossWPM, vitesse_nette:t.netWPM, precision:t.accuracy,
+    corrections_trouvees: s.corrections? (s.corrections.passed+'/'+s.corrections.total):'',
+    fautes_orthographe: (s.languageEvaluated? s.languageErrors : ''),
+    email_redige:state.write1.text, correction_redigee:state.write2.text
+  };
+  const el=$('send-status');
+  if(el){ el.textContent='Enregistrement des résultats…'; el.style.color='var(--muted)'; }
+  try{
+    await fetch(CONFIG.resultsEndpoint,{
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+    if(el){ el.textContent='✓ Vos résultats ont bien été enregistrés. Vous pouvez fermer cette page.'; el.style.color='var(--good)'; }
+  }catch(err){
+    if(el){ el.textContent='⚠ Connexion interrompue : merci de prévenir votre interlocuteur que le test est terminé.'; el.style.color='var(--warn)'; }
+  }
+}
+
+/* ============================================================
+   EXPORT
+   ============================================================ */
+function reportText(){
+  const c=state.candidate, t=state.typing, ig=integrityScore(), s=state.scores||{};
+  const L=[];
+  L.push('==============================================');
+  L.push('  RAPPORT D\'ÉVALUATION — FRANÇAIS ÉCRIT & FRAPPE');
+  L.push('==============================================');
+  L.push('Date : '+new Date().toLocaleString('fr-FR'));
+  L.push('Candidat : '+c.name);
+  if(c.email) L.push('Email : '+c.email);
+  if(c.role) L.push('Poste visé : '+c.role);
+  L.push('');
+  L.push('>>> NOTE GLOBALE : '+(s.global!=null?s.global.toFixed(1):'—')+' / 20   —   '+(s.verdict||'—'));
+  if(s.languageEvaluated===false) L.push('    (orthographe partie 2 non vérifiée — note partie 2 provisoire)');
+  L.push('    Partie 1 (frappe)     : '+(s.note1!=null?s.note1.toFixed(1):'—')+' / 20');
+  L.push('    Partie 2 (rédaction)  : '+(s.note2!=null?s.note2.toFixed(1):'—')+' / 20');
+  L.push('    Partie 3 (correction) : '+(s.note3!=null?s.note3.toFixed(1):'—')+' / 20');
+  L.push('');
+  L.push('--- INTÉGRITÉ ---');
+  L.push('Indice : '+ig.score+'/100 — '+ig.label);
+  L.push('Sorties de page : '+ig.blur+' | Collage : '+ig.paste+' | Insertions massives : '+ig.susp);
+  state.blurEvents.forEach(b=>L.push('   · sortie ('+b.type+') étape '+b.phase+' à '+fmtTime(b.atSec)));
+  L.push('');
+  L.push('--- 1. VITESSE DE FRAPPE ('+(s.note1!=null?s.note1.toFixed(1):'—')+'/20) ---');
+  L.push('Brute : '+t.grossWPM+' mots/min | Nette : '+t.netWPM+' mots/min | Précision : '+t.accuracy+'% | Durée : '+fmtTime(t.durationSec));
+  L.push('');
+  L.push('--- 2. RÉDACTION D\'EMAIL ('+(s.note2!=null?s.note2.toFixed(1):'—')+'/20) ---');
+  L.push('Mots : '+state.write1.words+' | Temps : '+fmtTime(state.write1.timeSpent));
+  if(s.structure){ L.push('Structure :'); s.structure.forEach(i=>L.push('   ['+(i.ok?'OK':'--')+'] '+i.label)); }
+  if(s.languageEvaluated) L.push('Orthographe : '+s.languageErrors+' faute(s) ('+s.languagePer100+'/100 mots) — '+s.languagePts.toFixed(1)+'/10');
+  else L.push('Orthographe : non vérifiée automatiquement');
+  L.push('Réponse :'); L.push(state.write1.text||'(vide)');
+  L.push('');
+  L.push('--- 3. CORRECTION / RÉÉCRITURE ('+(s.note3!=null?s.note3.toFixed(1):'—')+'/20) ---');
+  L.push('Mots : '+state.write2.words+' | Temps : '+fmtTime(state.write2.timeSpent));
+  if(s.corrections){ L.push('Corrections ('+s.corrections.passed+'/'+s.corrections.total+') :'); s.corrections.items.forEach(i=>L.push('   ['+(i.ok?'OK':'--')+'] '+i.label)); }
+  L.push('Texte d\'origine :'); L.push(CONFIG.write2Source);
+  L.push('Réponse :'); L.push(state.write2.text||'(vide)');
+  L.push('');
+  L.push('Notes automatiques pour un premier tri — à recouper pour les profils limites.');
+  return L.join('\n');
+}
+function download(filename, content, type){
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=filename; a.click();
+  URL.revokeObjectURL(url);
+}
+function safeName(){ return (state.candidate.name||'candidat').replace(/[^a-z0-9]+/gi,'_').toLowerCase(); }
+$('dl-txt').addEventListener('click',()=>download('rapport_'+safeName()+'.txt', reportText(),'text/plain;charset=utf-8'));
+$('dl-json').addEventListener('click',()=>download('rapport_'+safeName()+'.json', JSON.stringify({...state, integrity:integrityScore()},null,2),'application/json'));
+$('copy-report').addEventListener('click',async()=>{
+  try{ await navigator.clipboard.writeText(reportText()); toast('Rapport copié.', false); }
+  catch{ toast('Copie impossible — utilisez le téléchargement.'); }
+});
+</script>
+</body>
+</html>
